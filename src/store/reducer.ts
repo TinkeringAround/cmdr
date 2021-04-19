@@ -1,11 +1,12 @@
 import { CONSTS } from './actions'
-import { useStore } from './index'
+import { Command, useStore } from './index'
+
 const ACTION = CONSTS.ACTION
 const STATUS = CONSTS.STATUS
 
 const { on } = window.electron
 
-export interface CommandPayload {
+export interface CommandPayload extends Partial<Readonly<Command>> {
   id: string;
   data?: string;
   error?: string;

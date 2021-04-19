@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import * as serviceWorker from './serviceWorker'
 
@@ -7,11 +7,16 @@ import './index.css'
 import './store'
 import './store/reducer'
 
-// ==========================================================
-const App: FC = () => {
-  return <div />
-}
+// Components
+import Layout from './components/layout'
+import Navigation from './components/navigation'
+import Main from './components/main'
 
 // ==========================================================
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(
+  <Layout>
+    <Navigation />
+    <Main />
+  </Layout>,
+  document.getElementById('root'))
 serviceWorker.unregister()

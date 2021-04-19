@@ -1,0 +1,28 @@
+@import "../command/command.css";
+
+aside {
+    width: 200px;
+    padding: 2rem 0 2rem 1.5rem;
+
+    background: darkcyan;
+
+    overflow: hidden auto;
+
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar-track {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    display: none;
+}

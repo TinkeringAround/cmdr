@@ -1,0 +1,26 @@
+.command {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+
+    height: 50px;
+    margin-bottom: 1.5rem;
+
+    font-size: 0.8rem;
+    font-weight: bold;
+
+    background: white;
+    border-radius: 5px 0 0 5px;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background 0.15s ease-in-out;
+}
+
+.command:hover {
+    background: lightgrey;
+}
