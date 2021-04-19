@@ -1,28 +1,21 @@
-const electron = require('electron')
-const app = electron.app
-const BrowserWindow = electron.BrowserWindow
-const path = require('path')
-const isDev = require('electron-is-dev')
-let mainWindow
+const { app } = require('electron')
 
-function createWindow() {
-  mainWindow = new BrowserWindow({ width: 900, height: 680 })
-  mainWindow.loadURL(
-    isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`
-  )
-  mainWindow.on('closed', () => (mainWindow = null))
-}
+// ==============================================================
+const { logError } = require('./src/logger')
+const { createWindow } = require('./src/window')
+const { killAllProcesses } = require('./src/cmd')
 
-app.on('ready', createWindow)
+// ==============================================================
+process.on('uncaughtException', error =>
+  logError(`Main process: Uncaught Exception: ${error}`))
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+try {
+  app.on('ready', createWindow)
+  app.on('activate', createWindow)
+  app.on('window-all-closed', () => {
+    killAllProcesses()
     app.quit()
-  }
-})
-
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow()
-  }
-})
+  })
+} catch (error) {
+  logError(error)
+}
