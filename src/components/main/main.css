@@ -1,3 +1,6 @@
+@import "../button.css";
+@import "../animations.css";
+
 main {
     display: flex;
     flex-direction: column;
@@ -10,17 +13,21 @@ main {
     background: white;
 }
 
-header {
-    height: 2rem;
-    width: 100%;
-
-    background: darkcyan;
+main * {
+    animation: fadeIn 0.5s ease-in-out;
 }
 
-.content {
-    flex: 1;
+header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 
-    padding: 1rem 2rem;
+    height: 5rem;
+    width: 100%;
 
-    background: white;
+    padding: 0 2rem;
+
+    box-sizing: border-box;
+
+    animation: fadeIn 0.5s ease-in-out;
 }

@@ -2,7 +2,6 @@ import { CONSTS } from './actions'
 import { Command, useStore } from './index'
 
 const ACTION = CONSTS.ACTION
-const STATUS = CONSTS.STATUS
 
 const { on } = window.electron
 
@@ -10,7 +9,7 @@ export interface CommandPayload extends Partial<Readonly<Command>> {
   id: string;
   data?: string;
   error?: string;
-  status: typeof STATUS;
+  status: string;
 }
 
 on(ACTION.updateCommand, (_: any, { data, id, status, error }: CommandPayload) => {

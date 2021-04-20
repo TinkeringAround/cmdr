@@ -1,28 +1,17 @@
-@import "../command/command.css";
+@import "../animations.css";
 
 aside {
-    width: 200px;
+    width: 150px;
     padding: 2rem 0 2rem 1.5rem;
 
     background: darkcyan;
+    border-radius: 0 5px 5px 0;
 
     overflow: hidden auto;
-
+    opacity: 1;
     box-sizing: border-box;
+
+    animation: fromLeft 0.5s ease-in-out,
+    fadeIn 0.25 ease-in-out 0.25s;
 }
 
-::-webkit-scrollbar-track {
-    display: none;
-}
-
-::-webkit-scrollbar {
-    display: none;
-}
-
-::-webkit-scrollbar-thumb {
-    display: none;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    display: none;
-}

@@ -1,15 +1,23 @@
 import React, { FC } from 'react'
+import { Route, useStore } from '../../store'
+import { selectRoute } from '../../store/selector'
 
 import './main.css'
 
+import Overview from '../overview'
+
 const Main: FC = () => {
+  const route = useStore(selectRoute)
+
   return (
     <main>
-        <header/>
+      <header>
+        <button className='button primary'>
+          New Command
+        </button>
+      </header>
 
-        <div className="content">
-          Content
-        </div>
+      {route === Route.OVERVIEW && <Overview />}
     </main>
   )
 }
