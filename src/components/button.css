@@ -1,0 +1,23 @@
+.button {
+    height: 3rem;
+    width: 150px;
+
+    font-weight: bold;
+
+    border: none;
+    border-radius: 5px;
+
+    outline: none;
+    cursor: pointer;
+
+    transition: background 0.15s ease-in-out;
+}
+
+.primary {
+    color: white;
+    background: darkcyan;
+}
+
+.primary:hover {
+    background: rgba(0, 139, 139, 0.8);
+}
