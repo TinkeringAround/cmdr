@@ -5,17 +5,17 @@ const ACTION = CONSTS.ACTION
 
 const { on } = window.electron
 
-export interface CommandPayload extends Partial<Readonly<Command>> {
+export interface CommandPayload extends Readonly<Command> {
   id: string;
-  data?: string;
-  error?: string;
-  status: string;
 }
 
 on(ACTION.updateCommand, (_: any, { data, id, status, error }: CommandPayload) => {
+  const command = useStore.getState().commands[id]
+
   useStore.setState({
     commands: {
       [id]: {
+        ...command,
         status,
         data,
         error

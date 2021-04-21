@@ -7,7 +7,9 @@ const ACTION = Object.freeze({
 
 const STATUS = Object.freeze({
   SUCCESS: 'success',
-  ERROR: 'error'
+  ERROR: 'error',
+  RUNNING: 'running',
+  INACTIVE: 'inactive',
 })
 
 module.exports = {

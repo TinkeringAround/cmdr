@@ -8,6 +8,7 @@ export interface Command {
   error?: string;
   status: string;
   title?: string;
+  exec?: string;
 }
 
 export enum Route {
@@ -26,9 +27,10 @@ export const useStore = create<AppState>(() => ({
   route: Route.OVERVIEW,
   commands: {
     '1': {
-      title: 'Test Command',
-      status: STATUS.SUCCESS,
+      title: 'Show current directory',
+      status: STATUS.INACTIVE,
       data: 'Test',
+      exec: 'dir'
     }
   }
 }))

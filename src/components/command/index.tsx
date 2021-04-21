@@ -1,6 +1,7 @@
-import React, { FC, Fragment } from 'react'
+import React, { FC, Fragment, useCallback } from 'react'
 import { useStore } from '../../store'
 import { selectCommands } from '../../store/selector'
+import { runCommand } from '../../store/actions'
 
 import "./command.css"
 
@@ -11,10 +12,14 @@ type Props = {
 const Command: FC<Props> = ({ id }) => {
   const command = useStore(selectCommands)[id]
 
+  const runCmd = useCallback(() => {
+    if (command.exec) runCommand(id, command.exec)
+  }, [id, command])
+
   return (
     <Fragment>
       {command &&
-      <div className='command'>
+      <div className='command' onClick={runCmd}>
         <div className="left">
           <div className={`status ${command.status}`}/>
           <span>{command.title}</span>

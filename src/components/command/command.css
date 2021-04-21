@@ -40,8 +40,16 @@
 }
 
 .success {
-    composes: command left status;
     background: darkcyan;
+}
+
+.running {
+    background: gold;
+    animation: blink 1s linear infinite;
+}
+
+.inactive {
+    background: darkgray;
 }
 
 .command .left span {

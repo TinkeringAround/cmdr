@@ -4,43 +4,42 @@ const cmd = require('node-cmd')
 // ==============================================================
 const { ACTION, STATUS } = require('../../src/consts')
 const { logError, logInfo } = require('./logger')
-const { createId } = require('./id')
 
 // ==============================================================
 const childProcesses = {}
 
 // ==============================================================
-function createResponse(id, data = null, error = null) {
+function createResponse(id, status, data = null, error = null) {
   return {
     id,
     data,
     error,
-    status: data ? STATUS.SUCCESS : STATUS.ERROR
+    status
   }
 }
 
-function handleError(errorMsg, event) {
+function handleError(id, exec, errorMsg, event) {
   logError(errorMsg)
-  event.reply(ACTION.errorCommand, createResponse(id, null, errorMsg))
+  event.reply(ACTION.errorCommand, createResponse(id, STATUS.ERROR,null, errorMsg))
 }
 
-function runCommand(event, command) {
-  const id = createId()
+function runCommand(event, { id, exec }) {
+  console.log("id exec", id, exec)
   try {
     logInfo(`Try running command with id ${id}`)
 
-    childProcesses[id] = cmd.run(command,
+    childProcesses[id] = cmd.run(exec,
       function(err, data, _) {
-        const response = createResponse(id, data, err)
+        const response = createResponse(id, STATUS.SUCCESS, data, err)
         delete childProcesses[id]
         event.reply(ACTION.updateCommand, response)
         logInfo(`Running command with id ${id} was successful`)
       })
 
-    event.reply(ACTION.updateCommand, createResponse(id, {}))
+    event.reply(ACTION.updateCommand, createResponse(id, STATUS.RUNNING, {}))
   } catch (error) {
     const errorMsg = `Could not run command with id ${id}, raising error ${error}`
-    handleError(errorMsg, event)
+    handleError(id, errorMsg, event)
   }
 }
 
@@ -48,12 +47,13 @@ function killCommand(event, commandId) {
   try {
     logInfo(`Killing command with id ${commandId}`)
     if (childProcesses[commandId]) {
-      childProcesses[commandId].kill(1)
-      event.reply(ACTION.updateCommand, createResponse(commandId, {}))
+      const killResult = childProcesses[commandId].kill(1)
+      if (!killResult) handleError(commandId, `Could not kill command with id ${commandId}`, event)
+      else  event.reply(ACTION.updateCommand, createResponse(commandId, STATUS.SUCCESS, {}))
     }
   } catch (error) {
     const errorMsg = `Could not kill command with id ${commandId}, raising error ${error}`
-    handleError(errorMsg, event)
+    handleError(commandId, errorMsg, event)
   }
 }
 

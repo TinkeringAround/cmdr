@@ -14,7 +14,7 @@ const Overview: FC = () => {
       {Object
           .keys(commands)
             .map((commandId) =>
-              <Command id={commandId} key={commandId} />)}
+              <Command id={commandId} key={commandId}/>)}
     </div>
   )
 }
