@@ -1,7 +1,5 @@
 import create, { State } from 'zustand'
-import { CONSTS } from './actions'
-
-const STATUS = CONSTS.STATUS
+import { loadConfig } from './actions'
 
 export interface Command {
   data?: string;
@@ -20,19 +18,13 @@ export interface AppState extends State {
   route: Route,
   commands: {
     [key: string]: Command;
-  },
+  } | null,
 }
 
 export const useStore = create<AppState>(() => ({
   route: Route.OVERVIEW,
-  commands: {
-    '1': {
-      title: 'Show current directory',
-      status: STATUS.INACTIVE,
-      data: 'Test',
-      exec: 'dir'
-    }
-  }
+  commands: null
 }))
 
-useStore.subscribe(state => console.log('State updated', state))
+loadConfig()
+

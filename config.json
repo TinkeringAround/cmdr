@@ -1,0 +1,7 @@
+{
+  "1": {
+    "title": "Show Docker Help",
+    "status": "inactive",
+    "exec": "docker --help"
+  }
+}

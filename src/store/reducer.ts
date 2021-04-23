@@ -10,20 +10,37 @@ export interface CommandPayload extends Readonly<Command> {
 }
 
 on(ACTION.updateCommand, (_: any, { data, id, status, error }: CommandPayload) => {
-  const command = useStore.getState().commands[id]
+  const commands = useStore.getState().commands
 
-  useStore.setState({
-    commands: {
-      [id]: {
-        ...command,
-        status,
-        data,
-        error
+  if (commands && id in commands) {
+    useStore.setState({
+      commands: {
+        [id]: {
+          ...commands[id],
+          status,
+          data,
+          error
+        }
       }
-    }
-  })
+    })
+  }
 })
 
-on(ACTION.errorCommand, (_: any, event: any) => {
-  console.log('TODO', event)
+export interface ConfigPayload {
+  status: string
+  config?: {
+    [key: string]: Command;
+  }
+  error?: string
+}
+
+on(ACTION.configLoaded, (_: any, { config, error }: ConfigPayload) => {
+  useStore.setState({ commands: config ?? {} })
+
+  if (error) console.error(error)
+
+  useStore.subscribe(state => {
+    // TODO: Save store snapshot to config.json
+    console.log('State updated', state)
+  })
 })

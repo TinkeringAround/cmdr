@@ -8,10 +8,11 @@
 
     height: 60px;
     margin-bottom: 1.5rem;
-    padding: 0 1rem;
+    padding: 0 0 0 1rem;
 
     background: white;
     border-radius: 5px;
+    border: 1px solid darkcyan;
 
     box-sizing: border-box;
 
@@ -20,14 +21,14 @@
 }
 
 .command:hover {
-    background: lightgrey;
+    background: #f1f1f1;
 }
 
 .command .left {
-    flex: 4;
+    flex: 1;
     display: flex;
-    flex-direction: row;
     align-items: center;
+    justify-content: center;
 }
 
 .command .left .status {
@@ -57,6 +58,34 @@
     font-weight: bold;
 }
 
+.command .middle {
+    flex: 10;
+}
+
 .command .right {
-    flex: 1;
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: darkcyan;
+    border-radius: 0 5px 5px 0;
+
+    height: 100%;
+}
+
+.command .right .icon {
+    font-size: 1.5rem;
+    color: white;
+
+    cursor: pointer;
+    transition: color 0.1s ease-in-out;
+}
+
+.command .right .icon:not(:first-child) {
+    margin-left: 1rem;
+}
+
+.command .right .icon:hover {
+    color: #e6e6e6;
 }

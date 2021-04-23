@@ -18,42 +18,60 @@ function createResponse(id, status, data = null, error = null) {
   }
 }
 
-function handleError(id, exec, errorMsg, event) {
+function handleError(event, id, errorMsg) {
   logError(errorMsg)
-  event.reply(ACTION.errorCommand, createResponse(id, STATUS.ERROR,null, errorMsg))
+  event.reply(ACTION.updateCommand, createResponse(id, STATUS.ERROR, null, errorMsg))
 }
 
 function runCommand(event, { id, exec }) {
-  console.log("id exec", id, exec)
   try {
-    logInfo(`Try running command with id ${id}`)
+    logInfo(`${ACTION.runCommand} id ${id}`)
 
     childProcesses[id] = cmd.run(exec,
       function(err, data, _) {
-        const response = createResponse(id, STATUS.SUCCESS, data, err)
+        childProcesses[id].stdout.end()
         delete childProcesses[id]
+
+        const response = createResponse(id, STATUS.SUCCESS, data, err)
         event.reply(ACTION.updateCommand, response)
-        logInfo(`Running command with id ${id} was successful`)
+        logInfo(`${ACTION.runCommand} id ${id} was successful`)
       })
 
-    event.reply(ACTION.updateCommand, createResponse(id, STATUS.RUNNING, {}))
+    childProcesses[id].stdout.on('data',
+      function(data) {
+        const response = createResponse(id, STATUS.RUNNING, data)
+        event.reply(ACTION.updateCommand, response)
+      })
+
+    childProcesses[id].stdout.on('error',
+      function(error) {
+        handleError(event, id, STATUS.ERROR, error)
+      })
+
+    event.reply(ACTION.updateCommand, createResponse(id, STATUS.RUNNING))
   } catch (error) {
-    const errorMsg = `Could not run command with id ${id}, raising error ${error}`
-    handleError(id, errorMsg, event)
+    const errorMsg = `${ACTION.runCommand} id ${id}, raising ${error}`
+    handleError(event, id, errorMsg)
   }
 }
 
-function killCommand(event, commandId) {
+function killCommand(event, { id }) {
   try {
-    logInfo(`Killing command with id ${commandId}`)
-    if (childProcesses[commandId]) {
-      const killResult = childProcesses[commandId].kill(1)
-      if (!killResult) handleError(commandId, `Could not kill command with id ${commandId}`, event)
-      else  event.reply(ACTION.updateCommand, createResponse(commandId, STATUS.SUCCESS, {}))
+    if (childProcesses[id]) {
+      logInfo(`${ACTION.killCommand} process with id ${id}`)
+      childProcesses[id].stdout.end()
+      const killResult = childProcesses[id].kill(0)
+
+      if (!killResult) handleError(event, id, `Error at ${ACTION.killCommand} id ${id}`)
+      else event.reply(ACTION.updateCommand, createResponse(id, STATUS.INACTIVE))
+
+    } else {
+      handleError(event, id, `${ACTION.killCommand} id ${id}, id does not exist`)
     }
   } catch (error) {
-    const errorMsg = `Could not kill command with id ${commandId}, raising error ${error}`
-    handleError(commandId, errorMsg, event)
+    const errorMsg = `${ACTION.killCommand} id ${id}, raising ${error}`
+    logError(errorMsg)
+    handleError(event, id, errorMsg)
   }
 }
 
@@ -67,15 +85,15 @@ function killAllProcesses() {
       }
     }
   } catch (error) {
-    logError(`Killing all processes raised an error ${error}`)
+    logError(`Killing all processes raised ${error}`)
   }
 }
 
 
 // ==============================================================
 try {
-  ipcMain.on('[COMMAND] Run', runCommand)
-  ipcMain.on('[COMMAND] Kill', killCommand)
+  ipcMain.on(ACTION.runCommand, runCommand)
+  ipcMain.on(ACTION.killCommand, killCommand)
 } catch (error) {
   logError(error)
 }

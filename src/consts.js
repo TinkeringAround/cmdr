@@ -1,8 +1,10 @@
 const ACTION = Object.freeze({
   runCommand: '[COMMAND] Run',
   updateCommand: '[COMMAND] Update',
-  errorCommand: '[COMMAND] Error',
-  killCommand: '[COMMAND] Kill'
+  killCommand: '[COMMAND] Kill',
+  loadConfig: '[CONFIG] Load',
+  configLoaded: '[CONFIG] Loaded',
+  updateConfig: '[CONFIG] Update'
 })
 
 const STATUS = Object.freeze({
