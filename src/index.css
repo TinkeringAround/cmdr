@@ -6,6 +6,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Fonts */
+@font-face {
+  font-family: 'press-start';
+  src: url("./assets/fonts/pressStart.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
 /* Icons */
 @font-face {
   font-family: 'icomoon';

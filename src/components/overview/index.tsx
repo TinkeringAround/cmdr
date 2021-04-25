@@ -3,7 +3,7 @@ import { useStore } from '../../store'
 
 import './overview.css'
 
-import Row from '../row'
+import ScriptOverview from '../script-overview'
 
 const Overview: FC = () => {
   const { scripts } = useStore()
@@ -13,7 +13,7 @@ const Overview: FC = () => {
       {Object
         .keys(scripts)
         .map((id) =>
-          <Row id={id} key={id} />)}
+          <ScriptOverview id={id} key={id} />)}
     </div>
   )
 }

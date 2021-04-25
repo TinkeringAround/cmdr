@@ -1,6 +1,7 @@
 .button {
     height: 3rem;
-    width: 150px;
+
+    padding: 0 1rem;
 
     font-weight: bold;
 
@@ -13,11 +14,16 @@
     transition: background 0.15s ease-in-out;
 }
 
-.primary {
+.button.primary {
     color: white;
     background: darkcyan;
 }
 
-.primary:hover {
+.button.primary:hover {
     background: rgba(0, 139, 139, 0.8);
+}
+
+.button.disabled {
+    cursor: not-allowed;
+    background: darkgray;
 }

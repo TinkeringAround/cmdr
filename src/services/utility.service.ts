@@ -1,7 +1,5 @@
-import uuid from 'uuid';
+import * as uuid from 'uuid';
 
 export const UtilityService = {
-  getUuid: () => {
-    return uuid.v1();
-  }
+  createId: () => uuid.v1()
 }

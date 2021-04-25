@@ -1,6 +1,6 @@
 @import "../animations.css";
 
-.script {
+.script-overview {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -12,7 +12,7 @@
 
     background: white;
     border-radius: 5px;
-    border: 1px solid darkcyan;
+    border: 3px solid darkcyan;
 
     box-sizing: border-box;
 
@@ -20,18 +20,18 @@
     animation: fadeIn 0.5s ease-in-out;
 }
 
-.script:hover {
+.script-overview:hover {
     background: #f1f1f1;
 }
 
-.script .left {
+.script-overview .left {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.script .left .status {
+.script-overview .left .status {
     height: 25px;
     width: 25px;
 
@@ -53,39 +53,46 @@
     background: darkgray;
 }
 
-.script .left span {
+.error {
+    background: darkred;
+}
+
+.script-overview .left span {
     font-size: 1rem;
     font-weight: bold;
 }
 
-.script .middle {
+.script-overview .middle {
     flex: 10;
+
+    color: darkslategrey;
+    font-weight: bold;
+    cursor: default;
 }
 
-.script .right {
+.script-overview .right {
     flex: 2;
     display: flex;
     align-items: center;
     justify-content: center;
 
     background: darkcyan;
-    border-radius: 0 5px 5px 0;
 
     height: 100%;
 }
 
-.script .right .icon {
-    font-size: 1.5rem;
+.script-overview .right .icon {
+    font-size: 1.25rem;
     color: white;
 
     cursor: pointer;
     transition: color 0.1s ease-in-out;
 }
 
-.script .right .icon:not(:first-child) {
+.script-overview .right .icon:not(:first-child) {
     margin-left: 1rem;
 }
 
-.script .right .icon:hover {
+.script-overview .right .icon:hover {
     color: #e6e6e6;
 }

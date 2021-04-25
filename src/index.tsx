@@ -13,13 +13,13 @@ import { loadConfig } from './store/actions'
 // Components
 import Layout from './components/layout'
 import Navigation from './components/navigation'
-import Main from './components/main'
+import Content from './components/content'
 
 // ==========================================================
 ReactDOM.render(
   <Layout>
     <Navigation />
-    <Main />
+    <Content />
   </Layout>,
   document.getElementById('root'))
 serviceWorker.unregister()

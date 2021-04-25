@@ -1,0 +1,16 @@
+.input {
+    padding: 1rem 2rem;
+
+    border: none;
+    border-radius: 5px;
+
+    color: white;
+    background: darkcyan;
+
+    outline: none;
+    transition: background 0.15s ease-in-out;
+}
+
+.input:hover , .input:focus {
+    background: rgba(0, 139, 139, 0.8);
+}

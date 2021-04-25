@@ -1,10 +1,14 @@
 const ACTION = Object.freeze({
-  runScript: '[SCRIPT] Run',
-  updateScript: '[SCRIPT] Update',
+  updateRoute: '[ROUTE] Update',
+
+  addScript: '[SCRIPT] Add',
   deleteScript: '[SCRIPT] Delete',
   killScript: '[SCRIPT] Kill',
-  loadConfig: '[CONFIG] Load',
+  runScript: '[SCRIPT] Run',
+  updateScript: '[SCRIPT] Update',
+
   configLoaded: '[CONFIG] Loaded',
+  loadConfig: '[CONFIG] Load',
   updateConfig: '[CONFIG] Update'
 })
 
