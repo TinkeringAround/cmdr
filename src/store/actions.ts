@@ -1,11 +1,11 @@
-import {ACTION} from '../consts'
+import { ACTION } from '../consts'
 
-const { invoke } = window.electron
+const { dispatch, trigger } = window.electron
 
-export const runCommand = (id: string, exec: string) => invoke(ACTION.runCommand, {id, exec})
-export const killCommand = (id: string) => invoke(ACTION.killCommand, { id })
+export const runScript = (id: string, exec: string) => dispatch(ACTION.runScript, { id, exec })
+export const killScript = (id: string) => dispatch(ACTION.killScript, { id })
+export const deleteScript = (id: string) => trigger(ACTION.deleteScript, { id })
 
-export const loadConfig = () => invoke(ACTION.loadConfig)
+export const loadConfig = () => dispatch(ACTION.loadConfig)
 
 export * as CONSTS from '../consts'
-

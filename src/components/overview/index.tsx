@@ -1,20 +1,19 @@
 import React, { FC } from 'react'
 import { useStore } from '../../store'
-import { selectCommands } from '../../store/selector'
 
 import './overview.css'
 
-import Command from '../command'
+import Row from '../row'
 
 const Overview: FC = () => {
-  const commands = useStore(selectCommands)
+  const { scripts } = useStore()
 
   return (
     <div className='overview'>
       {Object
-          .keys(commands)
-            .map((commandId) =>
-              <Command id={commandId} key={commandId}/>)}
+        .keys(scripts)
+        .map((id) =>
+          <Row id={id} key={id} />)}
     </div>
   )
 }

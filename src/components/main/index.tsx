@@ -1,13 +1,12 @@
 import React, { FC } from 'react'
 import { Route, useStore } from '../../store'
-import { selectRoute } from '../../store/selector'
 
 import './main.css'
 
 import Overview from '../overview'
 
 const Main: FC = () => {
-  const route = useStore(selectRoute)
+  const { route } = useStore()
 
   return (
     <main>

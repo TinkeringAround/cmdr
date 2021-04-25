@@ -20,12 +20,12 @@ function createResponse(id, status, data = null, error = null) {
 
 function handleError(event, id, errorMsg) {
   logError(errorMsg)
-  event.reply(ACTION.updateCommand, createResponse(id, STATUS.ERROR, null, errorMsg))
+  event.reply(ACTION.updateScript, createResponse(id, STATUS.ERROR, null, errorMsg))
 }
 
-function runCommand(event, { id, exec }) {
+function runScript(event, { id, exec }) {
   try {
-    logInfo(`${ACTION.runCommand} id ${id}`)
+    logInfo(`${ACTION.runScript} id ${id}`)
 
     childProcesses[id] = cmd.run(exec,
       function(err, data, _) {
@@ -33,14 +33,14 @@ function runCommand(event, { id, exec }) {
         delete childProcesses[id]
 
         const response = createResponse(id, STATUS.SUCCESS, data, err)
-        event.reply(ACTION.updateCommand, response)
-        logInfo(`${ACTION.runCommand} id ${id} was successful`)
+        event.reply(ACTION.updateScript, response)
+        logInfo(`${ACTION.runScript} id ${id} was successful`)
       })
 
     childProcesses[id].stdout.on('data',
       function(data) {
         const response = createResponse(id, STATUS.RUNNING, data)
-        event.reply(ACTION.updateCommand, response)
+        event.reply(ACTION.updateScript, response)
       })
 
     childProcesses[id].stdout.on('error',
@@ -48,28 +48,28 @@ function runCommand(event, { id, exec }) {
         handleError(event, id, STATUS.ERROR, error)
       })
 
-    event.reply(ACTION.updateCommand, createResponse(id, STATUS.RUNNING))
+    event.reply(ACTION.updateScript, createResponse(id, STATUS.RUNNING))
   } catch (error) {
-    const errorMsg = `${ACTION.runCommand} id ${id}, raising ${error}`
+    const errorMsg = `${ACTION.runScript} id ${id}, raising ${error}`
     handleError(event, id, errorMsg)
   }
 }
 
-function killCommand(event, { id }) {
+function killScript(event, { id }) {
   try {
     if (childProcesses[id]) {
-      logInfo(`${ACTION.killCommand} process with id ${id}`)
+      logInfo(`${ACTION.killScript} process with id ${id}`)
       childProcesses[id].stdout.end()
       const killResult = childProcesses[id].kill(0)
 
-      if (!killResult) handleError(event, id, `Error at ${ACTION.killCommand} id ${id}`)
-      else event.reply(ACTION.updateCommand, createResponse(id, STATUS.INACTIVE))
+      if (!killResult) handleError(event, id, `Error at ${ACTION.killScript} id ${id}`)
+      else event.reply(ACTION.updateScript, createResponse(id, STATUS.INACTIVE))
 
     } else {
-      handleError(event, id, `${ACTION.killCommand} id ${id}, id does not exist`)
+      handleError(event, id, `${ACTION.killScript} id ${id}, id does not exist`)
     }
   } catch (error) {
-    const errorMsg = `${ACTION.killCommand} id ${id}, raising ${error}`
+    const errorMsg = `${ACTION.killScript} id ${id}, raising ${error}`
     logError(errorMsg)
     handleError(event, id, errorMsg)
   }
@@ -92,8 +92,8 @@ function killAllProcesses() {
 
 // ==============================================================
 try {
-  ipcMain.on(ACTION.runCommand, runCommand)
-  ipcMain.on(ACTION.killCommand, killCommand)
+  ipcMain.on(ACTION.runScript, runScript)
+  ipcMain.on(ACTION.killScript, killScript)
 } catch (error) {
   logError(error)
 }

@@ -7,6 +7,9 @@ import './index.css'
 import './store'
 import './store/reducer'
 
+// Store
+import { loadConfig } from './store/actions'
+
 // Components
 import Layout from './components/layout'
 import Navigation from './components/navigation'
@@ -20,3 +23,9 @@ ReactDOM.render(
   </Layout>,
   document.getElementById('root'))
 serviceWorker.unregister()
+
+window.addEventListener('load', () => loadConfig())
+window.addEventListener('beforeunload', () => {
+  // save config
+  console.log('TODO save config')
+})

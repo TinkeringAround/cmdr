@@ -1,22 +1,22 @@
 import { CONSTS } from './actions'
-import { Command, useStore } from './index'
+import { Script, useStore } from './index'
 
 const ACTION = CONSTS.ACTION
 
 const { on } = window.electron
 
-export interface CommandPayload extends Readonly<Command> {
+export interface ScriptPayload extends Readonly<Script> {
   id: string;
 }
 
-on(ACTION.updateCommand, (_: any, { data, id, status, error }: CommandPayload) => {
-  const commands = useStore.getState().commands
+on(ACTION.updateScript, (_: any, { data, id, status, error }: ScriptPayload) => {
+  const { scripts, update } = useStore.getState()
 
-  if (commands && id in commands) {
-    useStore.setState({
-      commands: {
+  if (id in scripts) {
+    update({
+      scripts: {
         [id]: {
-          ...commands[id],
+          ...scripts[id],
           status,
           data,
           error
@@ -29,13 +29,13 @@ on(ACTION.updateCommand, (_: any, { data, id, status, error }: CommandPayload) =
 export interface ConfigPayload {
   status: string
   config?: {
-    [key: string]: Command;
+    [key: string]: Script;
   }
   error?: string
 }
 
 on(ACTION.configLoaded, (_: any, { config, error }: ConfigPayload) => {
-  useStore.setState({ commands: config ?? {} })
+  useStore.getState().update({ scripts: config ?? {} })
 
   if (error) console.error(error)
 
@@ -43,4 +43,13 @@ on(ACTION.configLoaded, (_: any, { config, error }: ConfigPayload) => {
     // TODO: Save store snapshot to config.json
     console.log('State updated', state)
   })
+})
+
+on(ACTION.deleteScript, ({ id }: { id: string }) => {
+  const { scripts, update } = useStore.getState()
+
+  if (id in scripts) {
+    delete scripts[id]
+    update({ scripts })
+  }
 })

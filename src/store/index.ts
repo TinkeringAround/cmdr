@@ -1,7 +1,6 @@
 import create, { State } from 'zustand'
-import { loadConfig } from './actions'
 
-export interface Command {
+export interface Script {
   data?: string;
   error?: string;
   status: string;
@@ -14,17 +13,18 @@ export enum Route {
   COMMAND
 }
 
-export interface AppState extends State {
-  route: Route,
-  commands: {
-    [key: string]: Command;
-  } | null,
+export interface Scripts {
+  [key: string]: Script;
 }
 
-export const useStore = create<AppState>(() => ({
+export interface AppState extends State {
+  route: Route,
+  scripts: Scripts,
+  update: (state: Partial<AppState>) => void
+}
+
+export const useStore = create<AppState>((set) => ({
   route: Route.OVERVIEW,
-  commands: null
+  scripts: {},
+  update: (partial: Partial<AppState>) => set(partial)
 }))
-
-loadConfig()
-

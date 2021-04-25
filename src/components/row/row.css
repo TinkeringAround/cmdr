@@ -1,6 +1,6 @@
 @import "../animations.css";
 
-.command {
+.script {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -20,18 +20,18 @@
     animation: fadeIn 0.5s ease-in-out;
 }
 
-.command:hover {
+.script:hover {
     background: #f1f1f1;
 }
 
-.command .left {
+.script .left {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.command .left .status {
+.script .left .status {
     height: 25px;
     width: 25px;
 
@@ -53,16 +53,16 @@
     background: darkgray;
 }
 
-.command .left span {
+.script .left span {
     font-size: 1rem;
     font-weight: bold;
 }
 
-.command .middle {
+.script .middle {
     flex: 10;
 }
 
-.command .right {
+.script .right {
     flex: 2;
     display: flex;
     align-items: center;
@@ -74,7 +74,7 @@
     height: 100%;
 }
 
-.command .right .icon {
+.script .right .icon {
     font-size: 1.5rem;
     color: white;
 
@@ -82,10 +82,10 @@
     transition: color 0.1s ease-in-out;
 }
 
-.command .right .icon:not(:first-child) {
+.script .right .icon:not(:first-child) {
     margin-left: 1rem;
 }
 
-.command .right .icon:hover {
+.script .right .icon:hover {
     color: #e6e6e6;
 }
