@@ -1,5 +1,6 @@
 import { CONSTS } from './actions'
-import { ActiveRoute, Route, Script, useStore } from './index'
+import { useStore } from './index'
+import { ActiveRoute, ConfigPayload, HasId, Script, ScriptPayload } from './types'
 
 const { STATUS, ACTION } = CONSTS
 
@@ -15,13 +16,6 @@ on(ACTION.updateRoute, (_: any, { route, id }: Partial<ActiveRoute>) => {
     }
   })
 })
-
-export interface HasId {
-  id: string;
-}
-
-export interface ScriptPayload extends Partial<Script>, HasId {
-}
 
 on(ACTION.addScript, (_: any, { id }: HasId) => {
   const { scripts, update } = useStore.getState()
@@ -63,13 +57,7 @@ on(ACTION.updateScript, (_: any, { id, data, error, exec, title, status }: Scrip
   }
 })
 
-export interface ConfigPayload {
-  status: string
-  config?: {
-    [key: string]: Script;
-  }
-  error?: string
-}
+
 
 on(ACTION.configLoaded, (_: any, { config, error }: ConfigPayload) => {
   useStore.getState().update({ scripts: config ?? {} })

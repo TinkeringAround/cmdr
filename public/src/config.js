@@ -26,9 +26,26 @@ function loadConfig(event) {
   }
 }
 
+function updateConfig(event, { scripts }) {
+  try {
+    const appPath = app.getAppPath()
+    const configPath = `${appPath}\\config.json`
+    logInfo(`${ACTION.updateConfig} in path ${appPath}`)
+
+    if (fs.existsSync(configPath)) fs.unlinkSync(configPath)
+
+    const jsonConfig = JSON.stringify(scripts)
+    fs.writeFileSync(configPath, jsonConfig)
+  } catch (error) {
+    const errorMsg = `${ACTION.updateConfig}, raising ${error}`
+    logError(errorMsg)
+  }
+}
+
 // ==============================================================
 try {
   ipcMain.on(ACTION.loadConfig, loadConfig)
+  ipcMain.on(ACTION.updateConfig, updateConfig)
 } catch (error) {
   logError(error)
 }

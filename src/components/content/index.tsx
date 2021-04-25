@@ -10,7 +10,7 @@ import Icon from '../icon'
 import ScriptEditor from '../script-editor'
 
 const Content: FC = () => {
-  const { activeRoute } = useStore()
+  const { route } = useStore().activeRoute
 
   const createScript = useCallback(() =>
     addScript(UtilityService.createId()), [])
@@ -18,14 +18,15 @@ const Content: FC = () => {
   return (
     <main>
       <header>
+        {route === Route.OVERVIEW &&
         <button className='button primary' onClick={createScript}>
           <Icon type='add' />
           <span>New Command</span>
-        </button>
+        </button>}
       </header>
 
-      {activeRoute.route === Route.OVERVIEW && <Overview />}
-      {activeRoute.route === Route.EDITOR && <ScriptEditor />}
+      {route === Route.OVERVIEW && <Overview />}
+      {route === Route.EDITOR && <ScriptEditor />}
     </main>
   )
 }

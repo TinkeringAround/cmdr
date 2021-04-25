@@ -8,12 +8,13 @@ import './store'
 import './store/reducer'
 
 // Store
-import { loadConfig } from './store/actions'
+import { loadConfig, updateConfig } from './store/actions'
 
 // Components
 import Layout from './components/layout'
 import Navigation from './components/navigation'
 import Content from './components/content'
+import { useStore } from './store'
 
 // ==========================================================
 ReactDOM.render(
@@ -26,6 +27,6 @@ serviceWorker.unregister()
 
 window.addEventListener('load', () => loadConfig())
 window.addEventListener('beforeunload', () => {
-  // save config
-  console.log('TODO save config')
+  const { scripts } = useStore.getState()
+  updateConfig(scripts)
 })

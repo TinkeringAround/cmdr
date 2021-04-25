@@ -1,5 +1,5 @@
 import { ACTION } from '../consts'
-import { ActiveRoute, Script } from './index'
+import { ActiveRoute, Script, Scripts } from './types'
 
 const { dispatch, trigger } = window.electron
 
@@ -12,5 +12,6 @@ export const runScript = (id: string, exec: string) => dispatch(ACTION.runScript
 export const updateScript = (id: string, script: Partial<Script>) => trigger(ACTION.updateScript, { id, ...script })
 
 export const loadConfig = () => dispatch(ACTION.loadConfig)
+export const updateConfig = (scripts: Scripts) => dispatch(ACTION.updateConfig, { scripts })
 
 export * as CONSTS from '../consts'
