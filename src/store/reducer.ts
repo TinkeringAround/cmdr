@@ -58,11 +58,11 @@ on(ACTION.updateScript, (_: any, { id, data, error, exec, title, status }: Scrip
 })
 
 on(ACTION.configLoaded, (_: any, { config, error }: ConfigPayload) => {
-  useStore.getState().update({ scripts: config ?? {} })
+  useStore.getState().update({ scripts: config })
 
   if (error) console.error(error)
 
   if(isDev()) {
-    useStore.subscribe(state => console.log('State updated', state))
+    useStore.subscribe(state => console.log('[STATE]', `%O ${state}`))
   }
 })

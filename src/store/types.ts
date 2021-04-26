@@ -30,6 +30,6 @@ export interface Config {
 
 export interface ConfigPayload {
   status: string
-  config?: Config
+  config: Config
   error?: string
 }
