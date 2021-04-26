@@ -1,47 +1,23 @@
 @import "../input.css";
 @import "../button.css";
+@import "../textarea.css";
 
 .script-editor {
-    height: 100%;
-    flex: 1;
-
     display: flex;
     flex-direction: column;
+    flex: 1;
 
+    height: 100%;
     padding: 2rem;
 
     background: whitesmoke;
 }
 
 .script-editor .title {
-    font-size: 2rem;
-    font-weight: bold;
-
     margin-bottom: 2rem;
 }
 
-.script-editor .exec {
-    flex: 1;
-    padding: 1rem 2rem;
-
-    font-size: 1.5rem;
-    font-weight: bold;
-    line-height: 1.5;
-
-    border: 3px solid darkcyan;
-    border-radius: 5px;
-
-    color: darkcyan;
-    background: white;
-
-    resize: vertical;
-    outline: none;
-    box-sizing: border-box;
-
-    transition: background 0.15s ease-in-out;
-}
-
-.script-editor footer {
+.script-editor .controls {
     display: flex;
     justify-content: flex-end;
 

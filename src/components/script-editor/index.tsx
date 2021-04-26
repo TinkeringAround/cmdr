@@ -1,8 +1,9 @@
 import React, { FC, useCallback, useEffect, useState } from 'react'
 import { useStore } from '../../store'
+import { runScript, updateRoute, updateScript } from '../../store/actions'
 
 import './script-editor.css'
-import { updateScript } from '../../store/actions'
+import { Route } from '../../store/types'
 
 const ScriptEditor: FC = () => {
   const { id } = useStore().activeRoute
@@ -28,30 +29,42 @@ const ScriptEditor: FC = () => {
 
   const updateExec = useCallback((value: string) => {
     if (value) {
-      setExec(value.split("\n").join(" && "))
+      setExec(value
+        .split('\n')
+        .join(' && ')
+      )
       if (!dirty) setDirty(true)
     }
   }, [setExec, dirty, setDirty])
 
   const applyChanges = useCallback(() => {
-    updateScript(id, { title, exec })
-    setDirty(false)
-  }, [title, exec, id, setDirty])
+    if (dirty) {
+      updateScript(id, { title, exec })
+      setDirty(false)
+    }
+  }, [title, exec, id, dirty, setDirty])
+
+  const run = useCallback(() => {
+    if (scriptExec) {
+      updateRoute({ route: Route.RUNNER, id })
+      runScript(id, scriptExec)
+    }
+  }, [id, scriptExec])
 
   return (
     <div className='script-editor'>
-      <input className='input title' value={title} onChange={({ target }) => updateTitle(target?.value)} />
+      <input className='input title'
+             value={title}
+             onChange={({ target }) => updateTitle(target?.value)} />
 
-      <textarea className='exec'
-                rows={3}
-                cols={30}
+      <textarea className='textarea'
                 defaultValue={exec}
                 onChange={({ target }) => updateExec(target?.value)} />
 
-      <footer>
-        <button className={`button primary ${!dirty ? 'disabled' : ''}`}
-                onClick={applyChanges}>
-          Save
+      <footer className='controls'>
+        <button className={`button primary`}
+                onClick={dirty ? applyChanges : run}>
+          {dirty ? 'Save Changes' : 'Run Command'}
         </button>
       </footer>
     </div>

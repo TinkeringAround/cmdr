@@ -1,0 +1,19 @@
+.icon {
+    font-size: 1.25rem;
+    color: white;
+
+    cursor: pointer;
+    transition: color 0.1s ease-in-out;
+}
+
+.icon:not(:first-child) {
+    margin-left: 1rem;
+}
+
+.icon.disabled {
+    color: darkgrey;
+}
+
+.icon:hover:not(.disabled) {
+    color: #e6e6e6;
+}

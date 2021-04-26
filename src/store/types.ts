@@ -1,4 +1,8 @@
-import { Route } from './index'
+export enum Route {
+  OVERVIEW = 'OVERVIEW',
+  EDITOR = 'EDITOR',
+  RUNNER = 'RUNNER'
+}
 
 export interface Scripts {
   [key: string]: Script;

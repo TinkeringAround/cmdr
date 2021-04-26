@@ -6,8 +6,8 @@ main {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
-
     flex: 1;
+
     height: 100%;
 
     background: white;
@@ -17,21 +17,23 @@ main * {
     animation: fadeIn 0.5s ease-in-out;
 }
 
-header {
+main header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
 
     height: 5rem;
     width: 100%;
-
     padding: 0 2rem;
 
     box-sizing: border-box;
-
-    animation: fadeIn 0.5s ease-in-out;
 }
 
-header button span:last-child {
-    margin-left: 1rem;
+main header .route {
+    margin: 0;
+    font-size: 1.75rem;
+}
+
+main header button span {
+    margin: 0 !important;
 }

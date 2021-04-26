@@ -1,7 +1,8 @@
-.overview {
+.script-list {
     flex: 1;
-
     padding: 2rem;
 
     background: whitesmoke;
+
+    overflow: hidden auto;
 }

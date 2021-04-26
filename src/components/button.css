@@ -1,6 +1,9 @@
 .button {
-    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+    height: 3rem;
     padding: 0 1rem;
 
     font-weight: bold;
@@ -14,6 +17,10 @@
     transition: background 0.15s ease-in-out;
 }
 
+.button span:last-child {
+    margin-left: 1rem;
+}
+
 .button.primary {
     color: white;
     background: darkcyan;
@@ -25,5 +32,5 @@
 
 .button.disabled {
     cursor: not-allowed;
-    background: darkgray;
+    background: darkgray !important;
 }

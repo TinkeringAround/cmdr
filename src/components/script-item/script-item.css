@@ -1,6 +1,8 @@
 @import "../animations.css";
+@import "../status.css";
+@import "../icon/icon.css";
 
-.script-overview {
+.script-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -11,6 +13,7 @@
     padding: 0 0 0 1rem;
 
     background: white;
+
     border-radius: 5px;
     border: 3px solid darkcyan;
 
@@ -20,18 +23,18 @@
     animation: fadeIn 0.5s ease-in-out;
 }
 
-.script-overview:hover {
+.script-item:hover {
     background: #f1f1f1;
 }
 
-.script-overview .left {
+.script-item .left {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.script-overview .left .status {
+.script-item .left .status {
     height: 25px;
     width: 25px;
 
@@ -40,29 +43,12 @@
     border-radius: 25px;
 }
 
-.success {
-    background: darkcyan;
-}
-
-.running {
-    background: gold;
-    animation: blink 1s linear infinite;
-}
-
-.inactive {
-    background: darkgray;
-}
-
-.error {
-    background: darkred;
-}
-
-.script-overview .left span {
+.script-item .left span {
     font-size: 1rem;
     font-weight: bold;
 }
 
-.script-overview .middle {
+.script-item .middle {
     flex: 10;
 
     color: darkslategrey;
@@ -70,29 +56,14 @@
     cursor: default;
 }
 
-.script-overview .right {
-    flex: 2;
+.script-item .right {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background: darkcyan;
+    flex: 2;
 
     height: 100%;
-}
+    padding: 0 0.5rem;
 
-.script-overview .right .icon {
-    font-size: 1.25rem;
-    color: white;
-
-    cursor: pointer;
-    transition: color 0.1s ease-in-out;
-}
-
-.script-overview .right .icon:not(:first-child) {
-    margin-left: 1rem;
-}
-
-.script-overview .right .icon:hover {
-    color: #e6e6e6;
+    background: darkcyan;
 }

@@ -4,29 +4,20 @@ import * as serviceWorker from './serviceWorker'
 
 // Styles
 import './index.css'
-import './store'
-import './store/reducer'
 
 // Store
 import { loadConfig, updateConfig } from './store/actions'
-
-// Components
-import Layout from './components/layout'
-import Navigation from './components/navigation'
-import Content from './components/content'
+import './store'
+import './store/reducer'
 import { useStore } from './store'
 
+// Components
+import App from './components/app'
+
 // ==========================================================
-ReactDOM.render(
-  <Layout>
-    <Navigation />
-    <Content />
-  </Layout>,
-  document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'))
 serviceWorker.unregister()
 
 window.addEventListener('load', () => loadConfig())
-window.addEventListener('beforeunload', () => {
-  const { scripts } = useStore.getState()
-  updateConfig(scripts)
-})
+window.addEventListener('beforeunload', () =>
+  updateConfig(useStore.getState().scripts))

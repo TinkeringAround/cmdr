@@ -51,6 +51,7 @@ on(ACTION.updateScript, (_: any, { id, data, error, exec, title, status }: Scrip
   if (id in scripts) {
     update({
       scripts: {
+        ...scripts,
         [id]: script
       }
     })
@@ -62,7 +63,7 @@ on(ACTION.configLoaded, (_: any, { config, error }: ConfigPayload) => {
 
   if (error) console.error(error)
 
-  if(isDev()) {
+  if (isDev()) {
     useStore.subscribe(state => console.log('[STATE] Update', state))
   }
 })

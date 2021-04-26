@@ -1,0 +1,16 @@
+.success {
+    background: darkcyan;
+}
+
+.running {
+    background: gold;
+    animation: blink 1s linear infinite;
+}
+
+.inactive {
+    background: darkgray;
+}
+
+.error {
+    background: darkred;
+}

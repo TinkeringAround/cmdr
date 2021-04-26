@@ -1,10 +1,5 @@
 import create, { State } from 'zustand'
-import { ActiveRoute, Scripts } from './types'
-
-export enum Route {
-  OVERVIEW = 'overview',
-  EDITOR = 'editor'
-}
+import { ActiveRoute, Route, Scripts } from './types'
 
 export interface AppState extends State {
   activeRoute: ActiveRoute,

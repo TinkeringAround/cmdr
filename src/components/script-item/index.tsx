@@ -1,8 +1,9 @@
 import React, { FC, Fragment, useCallback } from 'react'
-import { Route, useStore } from '../../store'
+import { useStore } from '../../store'
 import { CONSTS, deleteScript, killScript, runScript, updateRoute } from '../../store/actions'
+import { Route } from '../../store/types'
 
-import './script-editor.css'
+import './script-item.css'
 
 import Icon from '../icon'
 
@@ -10,7 +11,7 @@ type Props = {
   id: string
 }
 
-const ScriptOverview: FC<Props> = ({ id }) => {
+const ScriptItem: FC<Props> = ({ id }) => {
   const { title, status, exec } = useStore().scripts[id]
 
   const run = useCallback(() => {
@@ -19,7 +20,9 @@ const ScriptOverview: FC<Props> = ({ id }) => {
 
   const stop = useCallback(() => killScript(id), [id])
 
-  const edit = useCallback(() => updateRoute({ route: Route.EDITOR, id}), [id])
+  const showOutput = useCallback(() => updateRoute({ route: Route.RUNNER, id }), [id])
+
+  const edit = useCallback(() => updateRoute({ route: Route.EDITOR, id }), [id])
 
   const deleteScrpt = useCallback(() => deleteScript(id), [id])
 
@@ -28,16 +31,19 @@ const ScriptOverview: FC<Props> = ({ id }) => {
   return (
     <Fragment>
       {title && status &&
-      <div className='script-overview'>
+      <div className='script-item'>
         <div className='left'>
           <div className={`status ${status}`} />
         </div>
+
         <div className='middle'>
           <span>{title}</span>
         </div>
+
         <div className='right'>
-          {!isRunning() && <Icon type='run' onClick={run} />}
+          {!isRunning() && <Icon type='run' onClick={run} disabled={!exec} />}
           {isRunning() && <Icon type='stop' onClick={stop} />}
+          <Icon type='output' onClick={showOutput} />
           <Icon type='edit' onClick={edit} />
           <Icon type='delete' onClick={deleteScrpt} />
         </div>
@@ -46,4 +52,4 @@ const ScriptOverview: FC<Props> = ({ id }) => {
   )
 }
 
-export default ScriptOverview
+export default ScriptItem

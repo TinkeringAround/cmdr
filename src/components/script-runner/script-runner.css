@@ -1,0 +1,50 @@
+@import "../icon/icon.css";
+@import "../button.css";
+@import "../textarea.css";
+
+.script-runner {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    height: 100%;
+    padding: 2rem;
+
+    background: whitesmoke;
+}
+
+.script-runner .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.script-runner .header .left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.script-runner .header .left h1 {
+    margin: 0;
+
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.script-runner .header .left .status {
+    height: 2rem;
+    width: 2rem;
+
+    margin-right: 1rem;
+
+    border-radius: 25px;
+}
+
+.script-runner .textarea {
+    font-size: 1.1rem;
+}

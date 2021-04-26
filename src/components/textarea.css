@@ -1,0 +1,24 @@
+.textarea {
+    flex: 1;
+    padding: 1rem 2rem;
+
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.5;
+
+    border: 3px solid darkcyan;
+    border-radius: 5px;
+
+    color: darkcyan;
+    background: white;
+
+    resize: vertical;
+    outline: none;
+    box-sizing: border-box;
+
+    transition: background 0.15s ease-in-out;
+}
+
+.textarea:focus {
+    background: #f9f9f9;
+}

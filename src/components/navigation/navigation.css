@@ -1,8 +1,8 @@
 @import "../animations.css";
 
-aside {
+.navigation {
     width: 150px;
-    padding: 2rem 1rem;
+    padding: 0.75rem 1rem;
 
     background: darkcyan;
     border-radius: 0 5px 5px 0;
@@ -10,12 +10,11 @@ aside {
     overflow: hidden auto;
     opacity: 1;
     box-sizing: border-box;
-
     animation: fromLeft 0.5s ease-in-out,
     fadeIn 0.25 ease-in-out 0.25s;
 }
 
-aside .logo {
+.navigation .logo {
     font-family: 'press-start', sans-serif;
     text-align: center;
     color: white;
