@@ -63,6 +63,6 @@ on(ACTION.configLoaded, (_: any, { config, error }: ConfigPayload) => {
   if (error) console.error(error)
 
   if(isDev()) {
-    useStore.subscribe(state => console.log('[STATE]', `%O ${state}`))
+    useStore.subscribe(state => console.log('[STATE] Update', state))
   }
 })
