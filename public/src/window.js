@@ -1,9 +1,11 @@
-const { BrowserWindow } = require('electron');
-const path = require('path');
-const isDev = require('electron-is-dev');
+const { BrowserWindow } = require('electron')
+const path = require('path')
 
 // ==============================================================
 const { logError, logInfo } = require('./logger')
+
+// ==============================================================
+const IS_DEV = process.env['NODE_ENV'] === "true"
 
 // ==============================================================
 let mainWindow
@@ -23,10 +25,12 @@ function createWindow() {
         }
       })
 
-      mainWindow.webContents.openDevTools()
+      if (IS_DEV) {
+        mainWindow.webContents.openDevTools()
+      }
 
       mainWindow.loadURL(
-        isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`
+        IS_DEV ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`
       )
 
       mainWindow.on('closed', () => (mainWindow = null))

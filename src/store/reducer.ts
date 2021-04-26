@@ -4,7 +4,7 @@ import { ActiveRoute, ConfigPayload, HasId, Script, ScriptPayload } from './type
 
 const { STATUS, ACTION } = CONSTS
 
-const { on } = window.electron
+const { on, isDev } = window.electron
 
 on(ACTION.updateRoute, (_: any, { route, id }: Partial<ActiveRoute>) => {
   const { activeRoute, update } = useStore.getState()
@@ -57,15 +57,12 @@ on(ACTION.updateScript, (_: any, { id, data, error, exec, title, status }: Scrip
   }
 })
 
-
-
 on(ACTION.configLoaded, (_: any, { config, error }: ConfigPayload) => {
   useStore.getState().update({ scripts: config ?? {} })
 
   if (error) console.error(error)
 
-  useStore.subscribe(state => {
-    // TODO: Save store snapshot to config.json
-    console.log('State updated', state)
-  })
+  if(isDev()) {
+    useStore.subscribe(state => console.log('State updated', state))
+  }
 })

@@ -1,4 +1,5 @@
 const { app } = require('electron')
+process.env['NODE_ENV'] = `${require('electron-is-dev')}`
 
 // ==============================================================
 const { logError } = require('./src/logger')

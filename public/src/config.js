@@ -1,16 +1,18 @@
 const { ipcMain, app } = require('electron')
-const fs = require('fs');
+const fs = require('fs')
 
 // ==============================================================
 const { ACTION, STATUS } = require('../../src/consts')
 const { logError, logInfo } = require('./logger')
 
 // ==============================================================
+const CONFIG_PATH = `${app.getAppPath()}\\config.json`
+
+// ==============================================================
 function loadConfig(event) {
   try {
-    const appPath = app.getAppPath()
-    logInfo(`${ACTION.loadConfig} in path ${appPath}`)
-    const configRaw = fs.readFileSync(`${appPath}\\config.json`);
+    logInfo(`${ACTION.loadConfig} in path ${CONFIG_PATH}`)
+    const configRaw = fs.readFileSync(CONFIG_PATH);
     const config = JSON.parse(configRaw);
 
     if (config) event.reply(ACTION.configLoaded, {status: STATUS.SUCCESS, config})
@@ -28,14 +30,12 @@ function loadConfig(event) {
 
 function updateConfig(event, { scripts }) {
   try {
-    const appPath = app.getAppPath()
-    const configPath = `${appPath}\\config.json`
-    logInfo(`${ACTION.updateConfig} in path ${appPath}`)
+    logInfo(`${ACTION.updateConfig} in path ${CONFIG_PATH}`)
 
-    if (fs.existsSync(configPath)) fs.unlinkSync(configPath)
+    if (fs.existsSync(CONFIG_PATH)) fs.unlinkSync(CONFIG_PATH)
 
     const jsonConfig = JSON.stringify(scripts)
-    fs.writeFileSync(configPath, jsonConfig)
+    fs.writeFileSync(CONFIG_PATH, jsonConfig)
   } catch (error) {
     const errorMsg = `${ACTION.updateConfig}, raising ${error}`
     logError(errorMsg)
