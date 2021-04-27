@@ -1,6 +1,6 @@
 import React, { FC, Fragment, useCallback } from 'react'
 import { useStore } from '../../store'
-import { CONSTS, deleteScript, killScript, runScript, updateRoute } from '../../store/actions'
+import { CONSTS, killScript, runScript, updateRoute } from '../../store/actions'
 import { Route } from '../../store/types'
 
 import './script-item.css'
@@ -24,28 +24,26 @@ const ScriptItem: FC<Props> = ({ id }) => {
 
   const edit = useCallback(() => updateRoute({ route: Route.EDITOR, id }), [id])
 
-  const deleteScrpt = useCallback(() => deleteScript(id), [id])
-
   const isRunning = useCallback(() => status === CONSTS.STATUS.RUNNING, [status])
 
   return (
     <Fragment>
       {title && status &&
       <div className='script-item'>
-        <div className='left'>
+        <div className='left'
+             onClick={showOutput}>
           <div className={`status ${status}`} />
         </div>
 
-        <div className='middle'>
+        <div className='middle'
+             onClick={showOutput}>
           <span>{title}</span>
         </div>
 
         <div className='right'>
           {!isRunning() && <Icon type='run' onClick={run} disabled={!exec} />}
           {isRunning() && <Icon type='stop' onClick={stop} />}
-          <Icon type='output' onClick={showOutput} />
           <Icon type='edit' onClick={edit} />
-          <Icon type='delete' onClick={deleteScrpt} />
         </div>
       </div>}
     </Fragment>

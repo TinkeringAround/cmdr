@@ -9,8 +9,9 @@ const { logError, logInfo } = require('./logger')
 const childProcesses = {}
 
 // ==============================================================
-function createResponse(id, status, data = null, error = null) {
+function createResponse(id, status, data = null, append = false, error = null) {
   return {
+    append,
     id,
     data,
     error,
@@ -20,7 +21,7 @@ function createResponse(id, status, data = null, error = null) {
 
 function handleError(event, id, errorMsg) {
   logError(errorMsg)
-  event.reply(ACTION.updateScript, createResponse(id, STATUS.ERROR, null, errorMsg))
+  event.reply(ACTION.updateScript, createResponse(id, STATUS.ERROR, null, false, errorMsg))
 }
 
 function runScript(event, { id, exec }) {
@@ -28,25 +29,23 @@ function runScript(event, { id, exec }) {
     logInfo(`${ACTION.runScript} id ${id}`)
 
     childProcesses[id] = cmd.run(exec,
-      function(err, data, _) {
+      (err, data, _) => {
         childProcesses[id].stdout.end()
         delete childProcesses[id]
 
-        const response = createResponse(id, STATUS.SUCCESS, data, err)
+        const response = createResponse(id, err ? STATUS.ERROR : STATUS.SUCCESS, data, false, err)
         event.reply(ACTION.updateScript, response)
         logInfo(`${ACTION.runScript} id ${id} was successful`)
       })
 
     childProcesses[id].stdout.on('data',
-      function(data) {
-        const response = createResponse(id, STATUS.RUNNING, data)
+      (data) => {
+        const response = createResponse(id, STATUS.RUNNING, data, true)
         event.reply(ACTION.updateScript, response)
       })
 
-    childProcesses[id].stdout.on('error',
-      function(error) {
-        handleError(event, id, STATUS.ERROR, error)
-      })
+    childProcesses[id].stdout.on('error', (error) =>
+      handleError(event, id, STATUS.ERROR, error))
 
     event.reply(ACTION.updateScript, createResponse(id, STATUS.RUNNING))
   } catch (error) {

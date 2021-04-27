@@ -42,6 +42,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-clipboard:before {
+  content: "\e92d";
+}
+.icon-save:before {
+  content: "\e962";
+}
+.icon-undo:before {
+  content: "\e965";
+}
 .icon-edit:before {
   content: "\e991";
 }
@@ -51,15 +60,9 @@ body {
 .icon-add:before {
   content: "\ea0a";
 }
-.icon-close:before {
-  content: "\ea0f";
-}
 .icon-run:before {
   content: "\ea1c";
 }
 .icon-stop:before {
   content: "\ea1e";
-}
-.icon-output:before {
-  content: "\ea6d";
 }

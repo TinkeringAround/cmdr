@@ -12,7 +12,7 @@ on(ACTION.updateRoute, (_: any, { route, id }: Partial<ActiveRoute>) => {
   update({
     activeRoute: {
       route: route ?? activeRoute.route,
-      id: id ?? (id === '' ? '' : activeRoute.id)
+      id: id ?? ''
     }
   })
 })
@@ -37,14 +37,19 @@ on(ACTION.deleteScript, (_: any, { id }: HasId) => {
   }
 })
 
-on(ACTION.updateScript, (_: any, { id, data, error, exec, title, status }: ScriptPayload) => {
+on(ACTION.updateScript, (_: any, { append, id, data, error, exec, title, status }: ScriptPayload) => {
   const { scripts, update } = useStore.getState()
 
   const script: Script = {
     title: title ?? scripts[id].title,
     status: status ?? scripts[id].status,
-    data: data ?? scripts[id].data,
-    error: error ?? scripts[id].error,
+    data: data ?? (append ?
+        [scripts[id].data, data].join('\n') :
+        scripts[id].data
+    ),
+    error: status === STATUS.ERROR ?
+      (error ?? scripts[id].error) :
+      undefined,
     exec: exec ?? scripts[id].exec
   }
 

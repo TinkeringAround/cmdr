@@ -1,6 +1,5 @@
 .icon {
     font-size: 1.25rem;
-    color: white;
 
     cursor: pointer;
     transition: color 0.1s ease-in-out;
@@ -12,8 +11,4 @@
 
 .icon.disabled {
     color: darkgrey;
-}
-
-.icon:hover:not(.disabled) {
-    color: #e6e6e6;
 }

@@ -8,9 +8,14 @@ export interface Scripts {
   [key: string]: Script;
 }
 
+export interface Error {
+  message: string;
+  stack: string;
+}
+
 export interface Script {
   data?: string;
-  error?: string;
+  error?: Error;
   status: string;
   title?: string;
   exec?: string;
@@ -26,6 +31,7 @@ export interface HasId {
 }
 
 export interface ScriptPayload extends Partial<Script>, HasId {
+  append: boolean
 }
 
 export interface Config {

@@ -16,27 +16,23 @@
 .script-runner .header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: center;
 
     width: 100%;
     margin-bottom: 2rem;
 }
 
-.script-runner .header .left {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.script-runner .header .left h1 {
+.script-runner .header h1 {
     margin: 0;
 
     font-size: 2rem;
     font-weight: bold;
+
+    cursor: default;
 }
 
-.script-runner .header .left .status {
+.script-runner .header .status {
     height: 2rem;
     width: 2rem;
 
@@ -45,6 +41,12 @@
     border-radius: 25px;
 }
 
-.script-runner .textarea {
-    font-size: 1.1rem;
+.script-runner footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}
+
+.script-runner footer .button:not(:first-child) {
+    margin-left: 1rem;
 }

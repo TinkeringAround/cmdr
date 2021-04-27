@@ -2,9 +2,9 @@
     flex: 1;
     padding: 1rem 2rem;
 
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: bold;
-    line-height: 1.5;
+    line-height: 1.25;
 
     border: 3px solid darkcyan;
     border-radius: 5px;
@@ -22,3 +22,22 @@
 .textarea:focus {
     background: #f9f9f9;
 }
+
+.textarea.success {
+    border-color: darkcyan;
+}
+
+.textarea.running {
+    border-color: gold;
+    color: gold;
+}
+
+.textarea.inactive {
+    border-color: darkgray;
+}
+
+.textarea.error {
+    border-color: darkred;
+    color: darkred;
+}
+

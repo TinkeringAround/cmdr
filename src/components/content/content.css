@@ -31,7 +31,10 @@ main header {
 
 main header .route {
     margin: 0;
+
     font-size: 1.75rem;
+
+    cursor: default;
 }
 
 main header button span {
