@@ -1,6 +1,6 @@
-# Electron + React + Typescript ❤️
+# CMDR
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Electron App for creating, editing and running Console Commands. 
 
 ## Scripts
 

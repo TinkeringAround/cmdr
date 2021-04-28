@@ -6,6 +6,7 @@ const { logError } = require('./src/logger')
 const { createWindow } = require('./src/window')
 const { killAllProcesses } = require('./src/cmd')
 require('./src/config')
+require('./src/menu')
 
 // ==============================================================
 process.on('uncaughtException', error =>
