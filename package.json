@@ -1,25 +1,23 @@
 {
-  "name": "electron-app",
+  "name": "cmdr",
   "version": "1.0.0",
-  "description": "Electron App",
+  "description": "Electron App for creating, editing and running Console Commands",
   "author": "Thomas Maier",
+  "repository": "https://github.com/TinkeringAround/cmdr.git",
   "build": {
-    "appId": "<com.electronapp>"
+    "appId": "com.electron.cmdr",
+    "productName": "CMDR"
   },
-  "main": "public/electron.js",
+  "main": "./public/electron.js",
   "homepage": "./",
   "private": true,
   "dependencies": {
-    "@types/jest": "26.0.22",
-    "@types/node": "14.14.37",
-    "@types/react": "17.0.3",
+    "@types/node": "15.0.1",
+    "@types/react": "17.0.4",
     "@types/react-dom": "17.0.3",
-    "@types/uuid": "^8.3.0",
-    "concurrently": "6.0.2",
-    "cross-env": "7.0.3",
-    "electron": "12.0.4",
-    "electron-builder": "22.10.5",
+    "@types/uuid": "8.3.0",
     "electron-is-dev": "2.0.0",
+    "hazardous": "^0.3.0",
     "node-cmd": "4.0.0",
     "path": "0.12.7",
     "react": "17.0.2",
@@ -28,13 +26,19 @@
     "typescript": "4.2.4",
     "uuid": "8.3.2",
     "wait-on": "5.3.0",
-    "zustand": "3.4.1"
+    "zustand": "3.4.2"
+  },
+  "devDependencies": {
+    "concurrently": "6.0.2",
+    "cross-env": "7.0.3",
+    "electron": "12.0.5",
+    "electron-builder": "22.10.5"
   },
   "scripts": {
     "build": "yarn react-build && yarn electron-build",
     "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron-build": "electron-builder",
-    "release": "yarn react-build && electron-builder --publish=always",
+    "release": "yarn react-build && electron-builder",
     "react-start": "react-scripts start",
     "react-build": "react-scripts build",
     "react-test": "react-scripts test"

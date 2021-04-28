@@ -5,7 +5,7 @@ const path = require('path')
 const { logError, logInfo } = require('./logger')
 
 // ==============================================================
-const IS_DEV = process.env['NODE_ENV'] === "true"
+const IS_DEV = process.env['NODE_ENV'] === 'true'
 
 // ==============================================================
 let mainWindow

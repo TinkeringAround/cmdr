@@ -1,9 +1,9 @@
 import React, { FC, useCallback } from 'react'
 import { Route } from '../../store/types'
-
-import './navigation.css'
 import { useStore } from '../../store'
 import { updateRoute } from '../../store/actions'
+
+import './navigation.css'
 
 const Navigation: FC = () => {
   const { activeRoute: { route } } = useStore()
