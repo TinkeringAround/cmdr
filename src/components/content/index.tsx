@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from 'react'
 import { useStore } from '../../store'
-import { addScript } from '../../store/actions'
+import { addScript, updateRoute } from '../../store/actions'
 import { Route } from '../../store/types'
 import { UtilityService } from '../../services/utility.service'
 
@@ -14,13 +14,16 @@ import ScriptRunner from '../script-runner'
 const Content: FC = () => {
   const { route } = useStore().activeRoute
 
-  const createScript = useCallback(() =>
-    addScript(UtilityService.createId()), [])
+  const createScript = useCallback(() => {
+    const id = UtilityService.createId()
+    addScript(id)
+    updateRoute({ route: Route.EDITOR, id })
+  }, [])
 
   return (
     <main>
       <header>
-        <h1 className="route">{route}</h1>
+        <h1 className='route'>{route}</h1>
         {route === Route.OVERVIEW &&
         <button className='button primary'
                 onClick={createScript}>
