@@ -6,7 +6,8 @@
   "repository": "https://github.com/TinkeringAround/cmdr.git",
   "build": {
     "appId": "com.electron.cmdr",
-    "productName": "CMDR"
+    "productName": "CMDR",
+    "icon": "./assets/cmdr.ico"
   },
   "main": "./public/electron.js",
   "homepage": "./",
