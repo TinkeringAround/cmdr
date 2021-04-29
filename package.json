@@ -17,7 +17,6 @@
     "@types/react-dom": "17.0.3",
     "@types/uuid": "8.3.0",
     "electron-is-dev": "2.0.0",
-    "hazardous": "^0.3.0",
     "node-cmd": "4.0.0",
     "path": "0.12.7",
     "react": "17.0.2",
@@ -30,14 +29,15 @@
   },
   "devDependencies": {
     "concurrently": "6.0.2",
+    "cpx": "1.5.0",
     "cross-env": "7.0.3",
     "electron": "12.0.5",
     "electron-builder": "22.10.5"
   },
   "scripts": {
-    "build": "yarn react-build && yarn electron-build",
-    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
-    "electron-build": "electron-builder",
+    "dev": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "package": "cpx ./src/consts.js ./public/src && yarn react-build && yarn electron-build",
+    "electron-build": "electron-builder --publish never",
     "release": "yarn react-build && electron-builder",
     "react-start": "react-scripts start",
     "react-build": "react-scripts build",

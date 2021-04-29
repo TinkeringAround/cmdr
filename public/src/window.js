@@ -5,7 +5,7 @@ const path = require('path')
 const { logError, logInfo } = require('./logger')
 
 // ==============================================================
-const IS_DEV = process.env['NODE_ENV'] === 'true'
+const isDev = process.env['NODE_ENV'] === 'dev'
 
 // ==============================================================
 let mainWindow
@@ -15,8 +15,8 @@ function createWindow() {
   try {
     if (mainWindow == null) {
       mainWindow = new BrowserWindow({
-        width: 1600,
-        height: 800,
+        width: isDev ? 1600 : 1000,
+        height: isDev ? 800 : 600,
         minHeight: 600,
         minWidth: 1000,
         webPreferences: {
@@ -25,12 +25,12 @@ function createWindow() {
         }
       })
 
-      if (IS_DEV) {
+      if (isDev) {
         mainWindow.webContents.openDevTools()
       }
 
       mainWindow.loadURL(
-        IS_DEV ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`
+        isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../index.html')}`
       )
 
       mainWindow.on('closed', () => (mainWindow = null))

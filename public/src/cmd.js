@@ -2,7 +2,8 @@ const { ipcMain } = require('electron')
 const cmd = require('node-cmd')
 
 // ==============================================================
-const { ACTION, STATUS } = require('../../src/consts')
+const isDev = process.env['NODE_ENV'] === "dev"
+const { ACTION, STATUS } = require(isDev ? '../../src/consts' : './consts')
 const { logError, logInfo } = require('./logger')
 
 // ==============================================================
@@ -87,7 +88,6 @@ function killAllProcesses() {
     logError(`Killing all processes raised ${error}`)
   }
 }
-
 
 // ==============================================================
 try {

@@ -1,5 +1,6 @@
 const { app } = require('electron')
-process.env['NODE_ENV'] = `${require('electron-is-dev')}`
+process.env['NODE_ENV'] = require('electron-is-dev') ? 'dev' : 'prod'
+process.env['DATA_PATH'] = `${app.getPath('userData')}`
 
 // ==============================================================
 const { logError } = require('./src/logger')

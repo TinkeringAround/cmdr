@@ -1,11 +1,12 @@
 const { app, Menu, shell } = require('electron')
-const isDev = require('electron-is-dev')
 
 // ==========================================================
 const { logError } = require('./logger')
 
 // ==========================================================
+const isDev = process.env['NODE_ENV'] === "dev"
 const isMac = process.platform === 'darwin'
+
 const template = [
   // App Menu
   ...(isMac

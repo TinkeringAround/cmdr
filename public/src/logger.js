@@ -1,21 +1,22 @@
 const { app } = require('electron')
 const fs = require('fs')
+const path = require('path')
 
 // ==============================================================
-const IS_DEV = process.env['NODE_ENV'] === "true"
+const isDev = process.env['NODE_ENV'] === "dev"
 const MAX_FILE_SIZE = 5
-const LOG_PATH = `${app.getAppPath()}\\log.txt`
+const LOG_PATH = path.join(process.env['DATA_PATH'], 'log.txt')
 
 // ==============================================================
 function logError(error) {
   const message = getTimestamp() + '   ERROR    ' + error
-  if (IS_DEV) console.error(message)
+  if (isDev) console.error(message)
   else writeToLogFile(message)
 }
 
 function logInfo(info) {
   const message = getTimestamp() + '   INFO     ' + info
-  if (IS_DEV) console.info(message)
+  if (isDev) console.info(message)
   else writeToLogFile(message)
 }
 
@@ -56,8 +57,8 @@ function getTimestamp() {
 
 // ==============================================================
 try {
-  console.info(`===> Running cmdr version ${app.getVersion()}`)
-  if (!IS_DEV) cleanLogFile()
+  logInfo(`===> Running cmdr version ${app.getVersion()}`)
+  if (!isDev) cleanLogFile()
 } catch (error) {
   logError(error)
 }
